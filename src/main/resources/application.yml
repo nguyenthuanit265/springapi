@@ -1,0 +1,22 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: spring-api-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: 12345678Aa9
+  jpa:
+    show-sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        generate_statistics: true
+        jdbc:
+          batch_size: 100
+        cache:
+          use_second_level_cache: false
+        format_sql: true
