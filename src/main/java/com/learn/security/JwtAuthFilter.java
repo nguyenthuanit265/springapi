@@ -22,7 +22,6 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final Logger LOGGER = LoggerFactory.getLogger(JwtAuthFilter.class);
-
     private final JwtTokenUtils jwtTokenUtils;
     private final UserDetailsService userDetailsService;
 
