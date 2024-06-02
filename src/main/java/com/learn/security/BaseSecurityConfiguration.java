@@ -76,6 +76,4 @@ public class BaseSecurityConfiguration {
     public CorsFilter corsFilter() {
         return new CorsFilter(corsConfigurationSource());
     }
-
-
 }

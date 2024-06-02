@@ -1,7 +1,6 @@
 package com.learn.controller;
 
 import com.learn.model.dto.CustomUserDetailsService;
-import com.learn.model.dto.SpringSecurityUserDetailsDto;
 import com.learn.model.entity.User;
 import com.learn.model.request.AuthRequest;
 import com.learn.model.request.SignUpRequest;
@@ -18,9 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,8 +53,7 @@ public class ManualAuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequest req, HttpServletRequest request) {
-        userService.signUp(req);
-        return ResponseEntity.ok(AppResponse.buildResponse("", request.getRequestURI(), HttpStatus.CREATED.name(), HttpStatus.CREATED.value(), ""));
+        return userService.signUp(req, request);
     }
 
     @PostMapping("/login")
@@ -86,7 +81,6 @@ public class ManualAuthController {
 
         } catch (BadCredentialsException ex) {
             ex.fillInStackTrace();
-//            throw new AuthenticationException("");
             return ResponseEntity.ok(AppResponse.buildResponse("", req.getRequestURI(), HttpStatus.UNAUTHORIZED.name(), HttpStatus.UNAUTHORIZED.value(), null));
         }
     }

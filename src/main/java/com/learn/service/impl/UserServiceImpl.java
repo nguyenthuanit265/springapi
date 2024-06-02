@@ -4,8 +4,12 @@ import com.learn.model.dto.SpringSecurityUserDetailsDto;
 import com.learn.model.dto.UserDto;
 import com.learn.model.entity.User;
 import com.learn.model.request.SignUpRequest;
+import com.learn.model.response.AppResponse;
 import com.learn.repository.UserRepository;
 import com.learn.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -25,15 +29,6 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.isEmpty(email)) {
             return Optional.empty();
         }
-//        if ("admin@gmail.com".equals(email)) {
-//            return Optional.ofNullable(SpringSecurityUserDetailsDto.builder()
-//                    .id(1L)
-//                    .name("admin")
-//                    .email(email)
-//                    .password("123456")
-//                    .build());
-//        }
-        // TODO Query DB
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             return Optional.ofNullable(
@@ -48,13 +43,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(SignUpRequest request) {
+    public ResponseEntity<?> signUp(SignUpRequest request, HttpServletRequest servletRequest) {
+        Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok(AppResponse.buildResponse("User is existed", servletRequest.getRequestURI(), HttpStatus.BAD_REQUEST.name(), HttpStatus.BAD_REQUEST.value(), ""));
+        }
         User user = new User();
         user.setEmail(request.getEmail());
         user.setName(request.getName());
         String hashPassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
         user.setPassword(hashPassword);
         userRepository.save(user);
+        return ResponseEntity.ok(AppResponse.buildResponse("", servletRequest.getRequestURI(), HttpStatus.CREATED.name(), HttpStatus.CREATED.value(), ""));
     }
 
     @Override
@@ -62,15 +62,6 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.isEmpty(username)) {
             return Optional.empty();
         }
-//        if ("admin@gmail.com".equals(email)) {
-//            return Optional.ofNullable(SpringSecurityUserDetailsDto.builder()
-//                    .id(1L)
-//                    .name("admin")
-//                    .email(email)
-//                    .password("123456")
-//                    .build());
-//        }
-        // TODO Query DB
         Optional<User> user = userRepository.findByEmail(username);
         if (user.isPresent()) {
             return Optional.ofNullable(
