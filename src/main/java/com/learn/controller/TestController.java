@@ -15,6 +15,6 @@ public class TestController {
 
     @GetMapping("/public")
     public String publicEndpoint() {
-        return "This is a public endpoint";
+        return "This is a public endpoint v1";
     }
 }
