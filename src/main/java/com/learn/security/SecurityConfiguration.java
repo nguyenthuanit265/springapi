@@ -64,7 +64,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(request -> {
                     request.requestMatchers(
                                     "/api/v1/auth/login",
-                                    "/api/v1/auth/sign-up").permitAll()
+                                    "/api/v1/auth/sign-up",
+                                    "/api/v1/public").permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(sessionManagement ->
