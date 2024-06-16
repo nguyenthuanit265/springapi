@@ -1,0 +1,11 @@
+email,expectedSubject,tokenStatus
+test@example.com,test@example.com,valid
+user@example.com,user@example.com,valid
+admin@example.com,admin@example.com,valid
+invalid@example.com,invalid@example.com,invalid
+expired@example.com,expired@example.com,expired
+null,,invalid
+,,invalid
+  ,  ,invalid
+test@example.com,test@example.com,valid
+user2@example.com,user2@example.com,valid
