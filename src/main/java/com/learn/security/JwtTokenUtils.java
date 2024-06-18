@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+// 30 test cases
 @Component
 public class JwtTokenUtils {
     private final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtils.class);
@@ -27,9 +28,9 @@ public class JwtTokenUtils {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException ex) {
-            LOGGER.error("JWT expired: {}. Error {}", ex.getMessage(), ex);
+            LOGGER.error("JWT expired. Error {}", ex.getMessage(), ex);
         } catch (IllegalArgumentException ex) {
-            LOGGER.error("Token is null, empty or only whitespace: {}, {}", ex.getMessage(), ex);
+            LOGGER.error("Token is null, empty or only whitespace: {}", ex.getMessage(), ex);
         } catch (MalformedJwtException ex) {
             LOGGER.error("JWT is invalid", ex);
         } catch (UnsupportedJwtException ex) {

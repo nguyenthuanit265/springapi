@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+// 10 test cases
 @ExtendWith(MockitoExtension.class)
 public class PasswordValidatorTest {
     private PasswordValidator passwordValidator;

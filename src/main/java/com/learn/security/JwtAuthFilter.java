@@ -1,6 +1,11 @@
 package com.learn.security;
 
 
+import com.learn.model.dto.SpringSecurityUserDetailsDto;
+import com.learn.model.dto.UserDto;
+import com.learn.model.entity.AccountPaymentEntity;
+import com.learn.service.impl.PaymentService;
+import com.learn.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -24,11 +30,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final Logger LOGGER = LoggerFactory.getLogger(JwtAuthFilter.class);
     private final JwtTokenUtils jwtTokenUtils;
     private final UserDetailsService userDetailsService;
+    private final UserService userService;
+    public static AccountPaymentEntity accountPayment;
 
     public JwtAuthFilter(JwtTokenUtils jwtTokenUtils,
-                         UserDetailsService userDetailsService) {
+                         UserDetailsService userDetailsService, UserService userService) {
         this.jwtTokenUtils = jwtTokenUtils;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     private boolean hasAuthorizationBearer(HttpServletRequest request) {
@@ -67,6 +76,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // setup account payment
+            initAccount();
         }
 
         filterChain.doFilter(request, response);
@@ -79,5 +91,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         return userDetailsService.loadUserByUsername(email);
+    }
+
+    private void initAccount() {
+        SpringSecurityUserDetailsDto userContext = (SpringSecurityUserDetailsDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserDto> optUser = userService.findByEmail(userContext.getEmail());
+        if (optUser.isPresent()) {
+            accountPayment = new AccountPaymentEntity(optUser.get());
+            accountPayment.setBills(PaymentService.initBills());
+        } else {
+            accountPayment = new AccountPaymentEntity();
+            accountPayment.setBills(PaymentService.initBills());
+        }
     }
 }

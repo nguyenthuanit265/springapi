@@ -1,4 +1,4 @@
-package com.learn;
+package com.learn.security;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

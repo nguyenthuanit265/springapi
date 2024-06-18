@@ -1,7 +1,6 @@
-package com.learn;
+package com.learn.security;
 
 import com.learn.model.entity.User;
-import com.learn.security.JwtTokenUtils;
 import io.jsonwebtoken.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +18,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// 30 test cases
 @ExtendWith(MockitoExtension.class)
 public class JwtTokenUtilsTest {
 

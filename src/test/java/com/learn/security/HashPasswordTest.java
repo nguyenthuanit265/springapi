@@ -1,4 +1,4 @@
-package com.learn;
+package com.learn.security;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+// 5 test cases
 @ExtendWith(MockitoExtension.class)
 public class HashPasswordTest {
     private PasswordEncoder passwordEncoder;

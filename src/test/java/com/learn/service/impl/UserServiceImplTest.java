@@ -18,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// 6 test cases
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
     @Mock
