@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -19,14 +17,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn clean install
 
       - name: Test
         run: mvn test
 
-      - name: Verify
-        run: mvn verify
+      - name: Build with Maven
+        run: mvn clean install
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
