@@ -60,3 +60,16 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
           docker run --name springapi-service --network springapi-network -p 8082:8082 -e DB_SOURCE="postgresql://${{secrets.POSTGRES_USERNAME_DB}}:${{secrets.POSTGRES_PASSWORD_DB}}@${{secrets.REMOTE_SERVER_ADDRESS}}:5432/postgres_springapi_db?sslmode=disable" -d nguyenthuanit265/springapi-image:latest
           ENDSSH
+      - name: Send mail
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+            to: nguyenthuanit265@gmail.com
+            from: Gitea <gitea@hostname>
+            subject: ${{ gitea.repository }} ${{gitea.workflow}} ${{ job.status }}
+            priority: high
+            convert_markdown: true
+            html_body: |
+              ### Job ${{ job.status }}
+  
+              ${{ github.repository }}: [${{ github.ref }}@${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/actions)
