@@ -18,6 +18,7 @@ jobs:
       - name: Test
         run: mvn test
   job-springapi-build:
+    needs: [ job-springapi-test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -73,25 +74,25 @@ jobs:
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
-            # Required mail server address if not connection_url:
-            server_address: smtp.gmail.com
-            # Server port, default 25:
-            server_port: 465
-            # user credentials
-            username: ${{ secrets.EMAIL_USERNAME }}
-            password: ${{ secrets.EMAIL_PASSWORD }}
+          # Required mail server address if not connection_url:
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+          # user credentials
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
 
-            # comma-separated string, send email to
-            to: nguyenthuanit265@gmail.com
-            # email subject
-            subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-            # email body as text
-            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-            # from email name
-            from: ${{ github.job }} job of ${{ github.repository }}
-            priority: high
-            convert_markdown: true
-            html_body: |
-              ### Job ${{ job.status }}
-  
-              ${{ github.repository }}: [${{ github.ref }}@${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/actions)
+          # comma-separated string, send email to
+          to: nguyenthuanit265@gmail.com
+          # email subject
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+          # email body as text
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          # from email name
+          from: ${{ github.job }} job of ${{ github.repository }}
+          priority: high
+          convert_markdown: true
+          html_body: |
+            ### Job ${{ job.status }}
+            
+            ${{ github.repository }}: [${{ github.ref }}@${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/actions)
