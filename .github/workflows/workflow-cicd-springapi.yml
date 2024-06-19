@@ -65,7 +65,11 @@ jobs:
           docker rm -f springapi-service
           docker rmi -f nguyenthuanit265/springapi-image:latest
           ENDSSH
-
+      - name: Pull image
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
+          docker pull nguyenthuanit265/springapi-image:latest
+          ENDSSH
       - name: Run docker container springapi-service
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
@@ -81,7 +85,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: 'D078WLHS62Y'
-          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          slack-message: "GitHub build result: failed\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
@@ -99,7 +103,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           to: nguyenthuanit265@gmail.com
           subject: springapi-service build failed
-#          body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          #          body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
           from: ${{ github.job }} job of ${{ github.repository }}
           priority: high
           convert_markdown: true
