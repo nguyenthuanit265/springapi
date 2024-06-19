@@ -98,12 +98,10 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           to: nguyenthuanit265@gmail.com
-          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-          body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-          from: ${{ github.job }} job of ${{ github.repository }}
+          subject: springapi-service build failed
           priority: high
           convert_markdown: true
           html_body: |
-            ### Job ${{ job.status }}
+            ### springapi-service build failed
 
             ${{ github.repository }}: [${{ github.ref }}@${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/actions)
