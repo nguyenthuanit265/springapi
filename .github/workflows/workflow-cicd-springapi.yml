@@ -64,6 +64,10 @@ jobs:
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
+            # Required mail server address if not connection_url:
+            server_address: smtp.gmail.com
+            # Server port, default 25:
+            server_port: 465
             # comma-separated string, send email to
             to: nguyenthuanit265@gmail.com
             # email subject
