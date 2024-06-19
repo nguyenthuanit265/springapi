@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  job-springapi-setup-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,9 +15,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-
+  job-springapi-test:
+    runs-on: ubuntu-latest
+    steps:
       - name: Test
         run: mvn test
+
+  job-springapi-build:
+    runs-on: ubuntu-latest
+    steps:
+#      - uses: actions/checkout@v4
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: Test
+#        run: mvn test
 
       - name: Build with Maven
         run: mvn clean install
@@ -71,7 +86,7 @@ jobs:
             # user credentials
             username: ${{ secrets.EMAIL_USERNAME }}
             password: ${{ secrets.EMAIL_PASSWORD }}
-            
+
             # comma-separated string, send email to
             to: nguyenthuanit265@gmail.com
             # email subject
