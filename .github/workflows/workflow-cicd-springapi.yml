@@ -64,9 +64,17 @@ jobs:
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
+            # comma-separated string, send email to
             to: nguyenthuanit265@gmail.com
-            from: Gitea <gitea@hostname>
-            subject: ${{ gitea.repository }} ${{gitea.workflow}} ${{ job.status }}
+            # mail server settings
+            server_address: smtp.gmail.com
+            server_port: 465
+            # email subject
+            subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+            # email body as text
+            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+            # from email name
+            from: ${{ github.job }} job of ${{ github.repository }}
             priority: high
             convert_markdown: true
             html_body: |
