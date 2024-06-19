@@ -22,12 +22,12 @@ public class HashPasswordTest {
     @Test
     public void testPasswordEncoderWorks() {
         // Directly testing PasswordEncoder
-        String rawPassword = "123456";
-        String encodedPassword = passwordEncoder.encode(rawPassword);
+        String rawPassword1 = "123456";
+        String encodedPassword = passwordEncoder.encode(rawPassword1);
 
         assertNotNull(encodedPassword);
 //        assertNotEquals(rawPassword, encodedPassword);
-        assertEquals(rawPassword, encodedPassword);
+        assertEquals(rawPassword1, encodedPassword);
     }
 
     @Test
