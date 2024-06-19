@@ -103,7 +103,6 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           to: nguyenthuanit265@gmail.com, pvo140398@gmail.com
           subject: springapi-service build failed
-          #          body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
           from: ${{ github.job }} job of ${{ github.repository }}
           priority: high
           convert_markdown: true
