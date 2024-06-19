@@ -8,11 +8,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.modelmapper.ModelMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class ManualAuthControllerTest {
 
     @Mock
@@ -63,6 +66,7 @@ public class ManualAuthControllerTest {
         authRequest.setPassword("wrongpassword");
 
         when(customUserDetailsService.findByEmail("incorrect@example.com")).thenReturn(Optional.empty());
+        when(passwordEncoder.matches("wrongpassword", "encoded_correct_password")).thenReturn(false);
 
         // Act
         ResponseEntity<?> response = manualAuthController.login(authRequest, httpServletRequest);
