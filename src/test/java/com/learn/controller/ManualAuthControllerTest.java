@@ -1,9 +1,7 @@
 package com.learn.controller;
 
 import com.learn.model.dto.CustomUserDetailsService;
-import com.learn.model.entity.User;
 import com.learn.model.request.AuthRequest;
-import com.learn.model.response.AppResponse;
 import com.learn.security.JwtTokenUtils;
 import com.learn.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
