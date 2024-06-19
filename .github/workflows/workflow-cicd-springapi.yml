@@ -66,9 +66,6 @@ jobs:
         with:
             # comma-separated string, send email to
             to: nguyenthuanit265@gmail.com
-            # mail server settings
-            server_address: smtp.gmail.com
-            server_port: 465
             # email subject
             subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
             # email body as text
