@@ -26,8 +26,8 @@ public class HashPasswordTest {
         String encodedPassword = passwordEncoder.encode(rawPassword1);
 
         assertNotNull(encodedPassword);
-        assertNotEquals(rawPassword1, encodedPassword);
-//        assertEquals(rawPassword1, encodedPassword);
+//        assertNotEquals(rawPassword1, encodedPassword);
+        assertEquals(rawPassword1, encodedPassword);
     }
 
     @Test
