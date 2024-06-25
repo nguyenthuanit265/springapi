@@ -16,8 +16,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Test
-#        run: mvn test
-        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+        run: mvn test
 
   job-springapi-build:
     needs: [ job-springapi-test ]
