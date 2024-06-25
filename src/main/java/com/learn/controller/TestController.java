@@ -16,6 +16,6 @@ public class TestController {
 
     @GetMapping("/public")
     public ResponseEntity<?> publicEndpoint() {
-        return ResponseEntity.ok("This is a public endpoint v1");
+        return ResponseEntity.ok("This is a public endpoint v2");
     }
 }
